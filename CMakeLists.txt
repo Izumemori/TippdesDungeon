@@ -10,6 +10,8 @@ endif()
 
 include (GNUInstallDirs)
 
+include_directories (include/)
+
 file (GLOB_RECURSE ALL_SOURCE_FILES
     src/*.cpp include/*.hpp
 )
