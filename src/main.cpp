@@ -1,6 +1,6 @@
-#include "../include/AsciiTextureManager.hpp"
+#include "AsciiTextureManager.hpp"
 
-#include "../include/GameObject.hpp"
+#include "GameObject.hpp"
 
 int main() {
     std::unique_ptr<Dungeon::TextureManager> textureManager = std::make_unique<Dungeon::AsciiTextureManager>();

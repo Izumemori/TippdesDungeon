@@ -1,4 +1,4 @@
-#include "../include/TextureManager.hpp"
+#include "TextureManager.hpp"
 
 namespace Dungeon {
     TextureManager::TextureManager() noexcept

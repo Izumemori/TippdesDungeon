@@ -1,5 +1,5 @@
-#include "../include/FileTextureManager.hpp"
-#include "../include/Texture.hpp"
+#include "FileTextureManager.hpp"
+#include "Texture.hpp"
 
 namespace Dungeon {
     FileTextureManager::FileTextureManager(std::string& basePath, int width, int height) {

@@ -1,4 +1,4 @@
-#include "../include/AsciiTextureManager.hpp"
+#include "AsciiTextureManager.hpp"
 
 namespace Dungeon {
     AsciiTextureManager::AsciiTextureManager()
