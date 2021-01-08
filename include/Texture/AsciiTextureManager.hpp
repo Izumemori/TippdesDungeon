@@ -6,19 +6,15 @@
 #include "TextureManager.hpp"
 
 namespace Dungeon {
+namespace Texture {
 
 class AsciiTextureManager : public TextureManager {
     public:
         AsciiTextureManager();
 
-        template <class TObject>
-        AsciiTextureManager* registerTile(char symbol)
-        {
-            this->textures[typeid(TObject)] = std::make_shared<AsciiTexture_t>(symbol);
-
-            return this;
-        }
+        AsciiTextureManager* registerTexture(const std::string& textureId, char symbol);
 };
 
+}
 }
 #endif // AsciiTextureManager_H

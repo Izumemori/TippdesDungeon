@@ -17,5 +17,9 @@ file (GLOB_RECURSE ALL_SOURCE_FILES
 )
 
 find_package (Threads REQUIRED)
+find_package (Curses REQUIRED)
+
+include_directories (${CURSES_INCLUDE_DIR})
 
 add_executable (tipp_des_dungeon ${ALL_SOURCE_FILES})
+target_link_libraries(tipp_des_dungeon ${CURSES_LIBRARIES})

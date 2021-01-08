@@ -3,17 +3,20 @@
 
 #include <iostream>
 
+namespace Dungeon {
+namespace Texture {
+
 typedef struct Texture {
     virtual ~Texture() = 0;
 } Texture_t;
 
 typedef struct FileTexture : public Texture {
-    std::string& relativePath;
+    std::string& path;
     int width;
     int height;
 
-    FileTexture(std::string& relativePath, int width, int height) 
-        : relativePath(relativePath), width(width), height(height)
+    FileTexture(std::string& path, int width, int height) 
+        : path(path), width(width), height(height)
     {}
 } FileTexture_t;
 
@@ -24,4 +27,6 @@ typedef struct AsciiTexture : public Texture {
     {}
 } AsciiTexture_t;
 
+}
+}
 #endif //Texture_H

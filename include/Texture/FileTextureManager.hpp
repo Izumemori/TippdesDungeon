@@ -7,24 +7,20 @@
 #include "TextureManager.hpp"
 
 namespace Dungeon {
+namespace Texture {
 
 class FileTextureManager : public TextureManager {
     public:
         FileTextureManager(std::string& basePath, int width, int height);
         
-        template<class TObject>
-        FileTextureManager* registerTile(std::string& relativePath) {
-            this->textures[typeid(TObject)] = std::make_shared<FileTexture_t>(relativePath, this->width, this->height);     
-        
-            return this;
-      
-        }
+        FileTextureManager* registerTexture(const std::string& textureId, std::string& relativePath);
     private:
         std::string basePath;
         int width;
         int height;
 };
 
+}
 }
 
 #endif // FileTextureManager_H

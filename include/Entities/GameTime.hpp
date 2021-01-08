@@ -6,6 +6,11 @@
 namespace Dungeon {
     typedef struct GameTime {
         uint64_t elapsedTimeMs;
+
+        GameTime(uint64_t elapsedTimeMs)
+            : elapsedTimeMs(elapsedTimeMs)
+            {}
+            
     } GameTime_t;
 }
 

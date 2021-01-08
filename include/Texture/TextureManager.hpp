@@ -7,25 +7,22 @@
 #include <typeindex>
 #include <typeinfo>
 
-#include "GameObject.hpp"
 #include "Texture.hpp"
 
 namespace Dungeon {
+namespace Texture {
 
 class TextureManager {
     public:
         TextureManager() noexcept;
 
-        template<class TObject>
-        std::shared_ptr<Texture> getTexture()
-        {
-            return this->textures[typeid(TObject)];
-        }
+        std::shared_ptr<Texture> getTexture(std::string& texture_id);
 
         virtual ~TextureManager() = 0;
     protected:
-        std::unordered_map<std::type_index, std::shared_ptr<Texture>> textures;
+        std::unordered_map<std::string, std::shared_ptr<Texture_t>> textures;
 };
 
+}
 }
 #endif // TextureManager_H
