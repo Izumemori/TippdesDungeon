@@ -22,7 +22,7 @@
 #define WALL_TILE "./img/wall.svg"
 #define DOOR_TILE "./img/door.svg"
 #define DEAD_TILE "./img/dead.svg"
-#define SWORD "./img/sword.svg"
+#define SWORD_TILE "./img/sword.svg"
 
 #define ENEMY_0_TILE "./img/enemy_0.svg"
 #define ENEMY_1_TILE "./img/enemy_1.svg"
