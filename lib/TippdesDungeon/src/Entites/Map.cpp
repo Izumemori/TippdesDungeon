@@ -16,6 +16,11 @@ namespace Dungeon {
         this->objects = objects;
     }
 
+    std::array<std::array<int, 15>, 15> Map::toArray(int x, int y, int maxX, int maxY)
+    {
+        // TODO
+    }
+
     Map::~Map()
     {
         for (auto obj : this->objects)

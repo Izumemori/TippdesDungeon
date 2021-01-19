@@ -38,6 +38,16 @@ namespace Dungeon {
 
             obj->update(time);
         }
+
+        auto map = this->map->toArray(0, 0, 15, 15);
+
+        for (int i = 0; i < 15; i++)
+        {
+            for (int y = 0; y < 15; y++)
+            {
+                gameData->map[i][y] = &map[i][y];
+            }
+        }
     }
 
     GameManager::~GameManager() 
