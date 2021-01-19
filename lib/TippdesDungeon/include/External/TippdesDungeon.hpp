@@ -5,6 +5,7 @@
 
 typedef struct GameData {
     int* map[15][15];
+    char statsText[50];
 } GameData_t;
 
 typedef struct InteractionData {
@@ -14,7 +15,7 @@ typedef struct InteractionData {
 extern "C" {
     void init();
 
-    void loadMap(char* map);
+    void loadMap(const char* map);
 
     void next(GameData_t* gameData, const InteractionData_t& interactionData);
 
