@@ -6,8 +6,8 @@ namespace Dungeon {
 
 class Entity : public GameObject {
     public:
-        Entity(const std::string& textureId, int x = 0, int y = 0, float vx = 0.0f, float vy = 0.0f, int width = 0, int height = 0)
-                : GameObject(textureId, x, y, vx, vy, width, height)
+        Entity(const int id, int x = 0, int y = 0, float vx = 0.0f, float vy = 0.0f, int width = 0, int height = 0)
+                : GameObject(id, x, y, vx, vy, width, height)
             {}
         
         // Constants
@@ -24,6 +24,8 @@ class Entity : public GameObject {
         };
 
         void update(GameTime_t& gameTime);
+
+        ~Entity();
 };
 
 }

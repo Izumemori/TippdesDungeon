@@ -2,14 +2,14 @@
 #include <cmath>
 
 namespace Dungeon {
-    GameObject::GameObject(const std::string& texture_id, int x, int y, float vx, float vy, int width, int height)
+    GameObject::GameObject(const int id, int x, int y, float vx, float vy, int width, int height)
     {
         this->position = std::make_unique<Point_t>(x, y);
         this->velocity = std::make_unique<Vector2_t>(vx, vy);
 
         this->width = width;
         this->height = height;
-        this->textureId = texture_id;
+        this->id = id;
     }
 
     int GameObject::getHeight()
@@ -51,9 +51,9 @@ namespace Dungeon {
         return true;
     }
 
-    std::string& GameObject::getTextureId()
+    int GameObject::getId()
     {
-        return this->textureId;
+        return this->id;
     }
 
     void GameObject::handleCollision(GameObject& other) {
@@ -63,5 +63,10 @@ namespace Dungeon {
         
         this->velocity->x *= -1;
         this->velocity->y *= -1;
+    }
+
+    GameObject::~GameObject()
+    {
+        // TODO
     }
 }

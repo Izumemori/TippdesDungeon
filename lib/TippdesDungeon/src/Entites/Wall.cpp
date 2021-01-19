@@ -3,6 +3,11 @@
 namespace Dungeon {
     void Wall::update(GameTime_t& gameTime) {
     
-        // Todo
+        // TODO
+    }
+
+    Wall::~Wall()
+    {
+        // TODO
     }
 }

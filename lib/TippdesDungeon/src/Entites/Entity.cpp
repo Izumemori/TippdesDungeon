@@ -6,6 +6,10 @@ namespace Dungeon {
         this->position->x += this->velocity->x * gameTime.elapsedTimeMs/1000.0f;
         this->position->y += this->velocity->y * gameTime.elapsedTimeMs/1000.0f;
         
-        // Todo
+        // TODO
+    }
+
+    Entity::~Entity() {
+        // TODO
     }
 }
