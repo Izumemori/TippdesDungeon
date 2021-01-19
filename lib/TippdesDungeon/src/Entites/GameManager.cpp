@@ -45,7 +45,7 @@ namespace Dungeon {
         {
             for (int y = 0; y < 15; y++)
             {
-                gameData->map[i][y] = &map[i][y];
+                gameData->map[i][y] = map[i][y];
             }
         }
     }

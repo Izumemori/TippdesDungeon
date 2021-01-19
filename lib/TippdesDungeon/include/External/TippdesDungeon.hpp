@@ -4,7 +4,7 @@
 #include "../ID.hpp"
 
 typedef struct GameData {
-    int* map[15][15];
+    int map[15][15];
     char statsText[50];
 } GameData_t;
 
