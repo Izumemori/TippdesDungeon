@@ -18,4 +18,4 @@ file (GLOB_RECURSE ALL_SOURCE_FILES
 
 find_package (Threads REQUIRED)
 
-add_library (libtipp_des_dungeon SHARED ${ALL_SOURCE_FILES})
+add_library (tipp_des_dungeon SHARED ${ALL_SOURCE_FILES})

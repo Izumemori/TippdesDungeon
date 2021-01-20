@@ -11,7 +11,7 @@ namespace Dungeon {
 
     void GameManager::loadMap(std::string& mapPath)
     {
-        this->map = std::make_unique<Map>(Map::fromAscii(mapPath));
+        this->map->fromAscii(mapPath);
     }
 
     void GameManager::next(GameData_t* gameData, const InteractionData_t& interactionData)
