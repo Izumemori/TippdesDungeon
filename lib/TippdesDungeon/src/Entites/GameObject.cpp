@@ -1,4 +1,5 @@
 #include "../../include/Entities/GameObject.hpp"
+#include "../../include/Entities/Wall.hpp"
 #include <cmath>
 
 namespace Dungeon {
@@ -34,6 +35,9 @@ namespace Dungeon {
 
     bool GameObject::checkCollision(GameObject& other)
     {
+        // TODO: redo these calculations
+        if (dynamic_cast<Dungeon::Wall*>(this)) return false;
+        
         float x1Min = this->position->x;
         float x1Max = this->position->x + this->width;
         float y1Min = this->position->y;
@@ -45,8 +49,8 @@ namespace Dungeon {
         float y2Min = other.getPosition().y;
         float y2Max = other.getPosition().y + other.getHeight();
 
-        if (x1Max < x2Min || x1Min > x2Max) return false;
-        if (y1Max < y2Min || y1Min > y2Max) return false;
+        if (x1Max < x2Min + 0.5f || x1Min + 0.5f > x2Max) return false;
+        if (y1Max < y2Min + 0.5f || y1Min + 0.5f > y2Max) return false;
 
         return true;
     }

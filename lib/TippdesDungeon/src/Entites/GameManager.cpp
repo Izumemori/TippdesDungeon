@@ -1,6 +1,8 @@
 #include "../../include/Entities/GameManager.hpp"
 #include "../../include/Entities/GameTime.hpp"
 
+#include <iostream>
+
 namespace Dungeon {
 
     GameManager::GameManager()
@@ -33,7 +35,9 @@ namespace Dungeon {
             for (auto obj2 : this->map->objects)
             {
                 if (obj->checkCollision(*obj2))
+                {
                     obj->handleCollision(*obj2);
+                }
             }
 
             obj->update(time);
