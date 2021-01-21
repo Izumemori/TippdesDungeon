@@ -1,6 +1,8 @@
 #include "../../include/Entities/Map.hpp"
 #include "../../include/Entities/Entity.hpp"
 #include "../../include/Entities/Wall.hpp"
+#include "../../include/Entities/Player.hpp"
+#include "../../include/Entities/Coin.hpp"
 
 #include <fstream>
 #include <iostream>
@@ -23,29 +25,38 @@ namespace Dungeon {
                 if (curr == '\n' || curr == '\r')
                     file >> curr;
 
-                GameObject* currObj = nullptr;
+                std::shared_ptr<GameObject> currObj;
 
                 switch (curr)
                 {
                     case '#':
-                        currObj = new Dungeon::Wall(i, j, 0, 0);
+                        currObj = std::make_shared<Dungeon::Wall>(i, j, 0, 0);
                         break;
 
                     case 'E':
-                        currObj = new Dungeon::Entity(i, j, 1, 1);
+                        currObj = std::make_shared<Dungeon::Entity>(i, j, 1, 1);
                         break;
+
+                    case 'P':
+                        currObj = std::make_shared<Dungeon::Player>(i, j);
+                        break;
+                    
+                    case 'C':
+                        currObj = std::make_shared<Dungeon::Coin>(i, j, 50);
+                        break;
+
+                    default:
+                        continue;
                 }
 
-                if (currObj != nullptr) {
-                    this->objects.push_back(currObj);
-                }
-
+                this->objects.push_back(std::move(currObj));
             }
         }
     }
 
     Map::Map()
     {
+        this->objects = {};
     }
 
     std::array<std::array<int, 15>, 15> Map::toArray(int x, int y, int maxX, int maxY)
@@ -56,7 +67,7 @@ namespace Dungeon {
             for (int j = 0; j < 15; j++)
                 array[i][j] = FLOOR;
 
-        for (auto obj : this->objects)
+        for (auto& obj : this->objects)
         {
             if (obj == nullptr) continue;
             
@@ -65,11 +76,17 @@ namespace Dungeon {
             
             int id = NO_CHANGE;
 
-            if (dynamic_cast<Wall*>(obj) != nullptr)
+            if (dynamic_cast<Wall*>(obj.get()) != nullptr)
                 id = WALL;
 
-            if (dynamic_cast<Entity*>(obj) != nullptr)
+            if (dynamic_cast<Entity*>(obj.get()) != nullptr)
                 id = ENEMY_0;
+
+            if (dynamic_cast<Player*>(obj.get()) != nullptr)
+                id = PLAYER;
+
+            if (dynamic_cast<Coin*>(obj.get()) != nullptr)
+                id = COIN_0;
 
             array[obj->getPosition().x][obj->getPosition().y] = id;
         }
@@ -79,8 +96,6 @@ namespace Dungeon {
 
     Map::~Map()
     {
-        for (auto obj : this->objects)
-            delete obj;
     }
 
 }

@@ -11,7 +11,7 @@ class Map {
     public:
         Map();
         void fromAscii(std::string& data);
-        std::vector<GameObject*> objects;
+        std::vector<std::shared_ptr<GameObject>> objects;
         std::array<std::array<int, 15>, 15> toArray(int x, int y, int maxX, int maxY);
         ~Map();
 };

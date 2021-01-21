@@ -10,7 +10,9 @@ class Wall : public GameObject {
     public:
         Wall(int x, int y, int vx, int vy)
             : GameObject(x, y, vx, vy)
-        {}
+        {
+            this->removable = false;
+        }
 
         // Constants 
         bool isEntity() const

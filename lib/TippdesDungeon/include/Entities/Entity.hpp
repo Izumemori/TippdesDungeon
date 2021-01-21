@@ -25,6 +25,8 @@ class Entity : public GameObject {
 
         void update(const InteractionData_t& interactionData);
 
+        virtual void handleCollision(GameObject& other);
+
         ~Entity();
 };
 

@@ -9,6 +9,11 @@ namespace Dungeon {
         // TODO
     }
 
+    void Entity::handleCollision(GameObject& other)
+    {
+        GameObject::handleCollision(other);
+    }
+
     Entity::~Entity() {
         // TODO
     }

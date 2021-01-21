@@ -21,6 +21,8 @@ class GameObject {
         Vector2_t& getVelocity();
         Point_t& getPosition();
 
+        bool removable = false;
+
         virtual bool isEntity() const = 0;
         virtual bool isPickupable() const = 0;
         virtual bool isWall() const = 0;
