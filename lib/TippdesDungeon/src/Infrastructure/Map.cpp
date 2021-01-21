@@ -1,14 +1,16 @@
-#include "../../include/Entities/Map.hpp"
+#include "../../include/Infrastructure/Map.hpp"
+
 #include "../../include/Entities/Entity.hpp"
 #include "../../include/Entities/Wall.hpp"
 #include "../../include/Entities/Player.hpp"
 #include "../../include/Entities/Coin.hpp"
+#include "../../include/Entities/Door.hpp"
 
 #include <fstream>
 #include <iostream>
 
 namespace Dungeon {
-    void Map::fromAscii(std::string& mapPath)
+    void Map::fromAscii(std::string& mapPath, std::shared_ptr<Entities::Player>& player)
     {
         this->objects = {};
         std::ifstream file(mapPath);
@@ -25,24 +27,29 @@ namespace Dungeon {
                 if (curr == '\n' || curr == '\r')
                     file >> curr;
 
-                std::shared_ptr<GameObject> currObj;
+                std::shared_ptr<Entities::GameObject> currObj;
 
                 switch (curr)
                 {
                     case '#':
-                        currObj = std::make_shared<Dungeon::Wall>(i, j, 0, 0);
+                        currObj = std::make_shared<Entities::Wall>(i, j, 0, 0);
                         break;
 
                     case 'E':
-                        currObj = std::make_shared<Dungeon::Entity>(i, j, 1, 1);
+                        currObj = std::make_shared<Entities::Entity>(i, j, 1, 1);
                         break;
 
                     case 'P':
-                        currObj = std::make_shared<Dungeon::Player>(i, j);
+                        player->moveTo(i, j);
+                        currObj = player;
                         break;
                     
                     case 'C':
-                        currObj = std::make_shared<Dungeon::Coin>(i, j, 50);
+                        currObj = std::make_shared<Entities::Coin>(i, j, 50); // TODO: Randomize coins
+                        break;
+
+                    case '+':
+                        currObj = std::make_shared<Entities::Door>(i, j);
                         break;
 
                     default:
@@ -99,17 +106,20 @@ namespace Dungeon {
             
             int id = NO_CHANGE;
 
-            if (dynamic_cast<Wall*>(obj.get()) != nullptr)
+            if (dynamic_cast<Entities::Wall*>(obj.get()) != nullptr)
                 id = WALL;
 
-            if (dynamic_cast<Entity*>(obj.get()) != nullptr)
+            if (dynamic_cast<Entities::Entity*>(obj.get()) != nullptr)
                 id = ENEMY_0;
 
-            if (dynamic_cast<Player*>(obj.get()) != nullptr)
+            if (dynamic_cast<Entities::Player*>(obj.get()) != nullptr)
                 id = PLAYER;
 
-            if (dynamic_cast<Coin*>(obj.get()) != nullptr)
+            if (dynamic_cast<Entities::Coin*>(obj.get()) != nullptr)
                 id = COIN_0;
+
+            if (dynamic_cast<Entities::Door*>(obj.get()) != nullptr)
+                id = DOOR;
 
             array[obj->getPosition().x][obj->getPosition().y] = id;
         }

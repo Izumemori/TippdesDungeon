@@ -4,6 +4,7 @@
 #include "Collectable.hpp"
 
 namespace Dungeon {
+namespace Entities {
 
 class Coin : public Collectable {
     public:
@@ -21,6 +22,7 @@ class Coin : public Collectable {
         int value;
 };
 
+}
 }
 
 #endif // Coin_H

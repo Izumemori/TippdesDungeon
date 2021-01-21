@@ -3,13 +3,13 @@
 
 #include <memory>
 
-#include "GameTime.hpp"
-#include "Point.hpp"
-#include "Vector2.hpp"
+#include "../Util/Point.hpp"
+#include "../Util/Vector2.hpp"
 #include "../ID.hpp"
 #include "../External/TippdesDungeon.hpp"
 
 namespace Dungeon {
+namespace Entities {
 
 class GameObject {
     public:
@@ -23,9 +23,6 @@ class GameObject {
 
         bool removable = false;
 
-        virtual bool isEntity() const = 0;
-        virtual bool isPickupable() const = 0;
-        virtual bool isWall() const = 0;
         virtual void update(const InteractionData_t& interactionData) = 0;
         virtual bool checkCollision(GameObject& other);
         virtual void handleCollision(GameObject& other);
@@ -39,6 +36,7 @@ class GameObject {
         std::unique_ptr<Point_t> position;
 };
 
+}
 }
 
 #endif // GameObject_H

@@ -1,9 +1,11 @@
 #include "../../include/Entities/Player.hpp"
 #include "../../include/Entities/Collectable.hpp"
+#include "../../include/Entities/Door.hpp"
 
 #include <iostream>
 
 namespace Dungeon {
+namespace Entities {
 
     void Player::update(const InteractionData_t& interactionData)
     {
@@ -33,6 +35,12 @@ namespace Dungeon {
         this->position->y += this->velocity->y;
     }
 
+    void Player::moveTo(int x, int y)
+    {
+        this->position->x = x;
+        this->position->y = y;
+    }
+
     void Player::handleCollision(GameObject& other)
     {
         Collectable* collectable;
@@ -44,10 +52,17 @@ namespace Dungeon {
             if (res.first)
             {
                 collectable->removable = true;
+                this->coins += res.second.coins;
 
-                // TODO: collect
+                return;
             }
             
+        }
+
+        if (dynamic_cast<Door*>(&other))
+        {
+            this->mapDone = true;
+            return;
         }
 
         GameObject::handleCollision(other);
@@ -57,4 +72,5 @@ namespace Dungeon {
     {
 
     }
+}
 }

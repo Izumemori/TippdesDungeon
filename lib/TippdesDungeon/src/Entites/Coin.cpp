@@ -1,6 +1,8 @@
 #include "../../include/Entities/Coin.hpp"
 
 namespace Dungeon {
+namespace Entities {
+
     Coin::Coin(int x, int y, int value)
         : Collectable(x, y)
     {
@@ -24,4 +26,5 @@ namespace Dungeon {
     {
 
     }
+}
 }

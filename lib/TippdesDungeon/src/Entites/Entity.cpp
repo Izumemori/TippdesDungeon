@@ -1,6 +1,8 @@
 #include "../../include/Entities/Entity.hpp"
 
 namespace Dungeon {
+namespace Entities {
+
     void Entity::update(const InteractionData_t& interactionData) {
 
         this->position->x += this->velocity->x;
@@ -17,4 +19,5 @@ namespace Dungeon {
     Entity::~Entity() {
         // TODO
     }
+}
 }

@@ -4,10 +4,10 @@
 namespace Dungeon {
 
 typedef struct CollectableResult {
-    int Coins;
+    int coins;
 
     CollectableResult(int coins)
-        : Coins(coins)
+        : coins(coins)
         {}
 
 } CollectableResult_t;

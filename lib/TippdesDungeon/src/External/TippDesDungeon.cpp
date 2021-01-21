@@ -1,23 +1,17 @@
 #include "../../include/External/TippdesDungeon.hpp"
-
-#include "../../include/Entities/GameManager.hpp"
+#include "../../include/Infrastructure/GameManager.hpp"
 
 #include <memory>
 #include <sstream>
 
 static std::unique_ptr<Dungeon::GameManager> gameManager;
 
-void init()
-{
-    gameManager = std::make_unique<Dungeon::GameManager>();
-}
-
-void loadMap(const char* path)
+void init(const char* mapPath)
 {
     std::stringstream sstream;
-    sstream << path;
-    auto mapPath = sstream.str();
-    gameManager->loadMap(mapPath);
+    sstream << mapPath;
+    auto path = sstream.str();
+    gameManager = std::make_unique<Dungeon::GameManager>(path);
 }
 
 void next(GameData_t* gameData, const InteractionData_t& interactionData)

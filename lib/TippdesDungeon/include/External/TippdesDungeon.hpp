@@ -13,9 +13,7 @@ typedef struct InteractionData {
 } InteractionData_t;
 
 extern "C" {
-    void init();
-
-    void loadMap(const char* map);
+    void init(const char* mapPath);
 
     void next(GameData_t* gameData, const InteractionData_t& interactionData);
 

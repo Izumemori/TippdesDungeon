@@ -13,9 +13,14 @@ void print(GameData_t* gameData, WINDOW* window)
         for (int i = 0; i < 15; i++)
         {
             wmove(window, j, i);
-            char toPrint = ' ';
+
+            char toPrint = '{';
 
             switch (gameData->map[j][i]) {
+                case FLOOR:
+                    toPrint = ' ';
+                    break;
+
                 case WALL:
                     toPrint = 'X';
                     break;
@@ -31,27 +36,33 @@ void print(GameData_t* gameData, WINDOW* window)
                 case COIN_0:
                     toPrint = 'C';
                     break;
+                
+                case DOOR:
+                    toPrint = '+';
+                    break;
             }
             
-            waddch(window, toPrint);
+            if (toPrint != '{')
+                waddch(window, toPrint);
         }
     }
+
+    wmove(window, 17, 5);
+    waddstr(window, gameData->statsText);
 
     wrefresh(window);
 }
 
 int main() {
 
-    init();
+    init("./maps/");
         
-    loadMap("./map_01");
-
     auto gameData = new GameData_t();
 
     auto interactionData = InteractionData();
 
     initscr();
-    WINDOW* window = newwin(15, 15, 0, 0);
+    WINDOW* window = newwin(16, 20, 0, 0);
 
 
     while (true) {
