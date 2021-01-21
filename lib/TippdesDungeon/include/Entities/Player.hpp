@@ -24,8 +24,8 @@ class Player : public GameObject {
         ~Player();
 
         bool mapDone = false;
-        int coins;
-        int health;
+        int coins = 0;
+        int health = 0;
 };
 
 }
