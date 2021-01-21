@@ -1,5 +1,21 @@
 # = wall
-* = door
 P = player starting position (?)
 E = enemy
 C = collectible
+
+template:
+###############
+#             #
+#             #
+#             #
+#             #
+#             #
+#             #
+#             #
+#             #
+#             #
+#             #
+#             #
+#             #
+#             #
+###############
