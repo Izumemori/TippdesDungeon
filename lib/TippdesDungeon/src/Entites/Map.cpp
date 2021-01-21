@@ -56,11 +56,13 @@ namespace Dungeon {
             for (int j = 0; j < 15; j++)
                 array[i][j] = 0;
 
-        // TODO: respect arguments
         for (auto obj : this->objects)
         {
             if (obj == nullptr) continue;
-
+            
+            if (obj->getPosition().x > maxX || obj->getPosition().y > maxY
+                || obj->getPosition().x < x || obj->getPosition().y < y) continue;
+            
             int id = NO_CHANGE;
 
             if (dynamic_cast<Wall*>(obj) != nullptr)
@@ -69,9 +71,7 @@ namespace Dungeon {
             if (dynamic_cast<Entity*>(obj) != nullptr)
                 id = ENEMY_0;
 
-            if ((int)obj->getPosition().x > 14 || (int)obj->getPosition().y > 14) continue;
-
-            array[(int)obj->getPosition().x][(int)obj->getPosition().y] = id;
+            array[obj->getPosition().x][obj->getPosition().y] = id;
         }
 
         return array;
