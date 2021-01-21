@@ -1,7 +1,7 @@
 #include "../../include/Entities/Wall.hpp"
 
 namespace Dungeon {
-    void Wall::update(GameTime_t& gameTime) {
+    void Wall::update(const InteractionData_t& interactionData) {
     
         // TODO
     }

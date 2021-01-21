@@ -37,6 +37,6 @@ include_directories (${CURSES_INCLUDE_DIR})
 
 add_executable (tipp_des_dungeon_console ${ALL_SOURCE_FILES})
 
-add_dependencies (tipp_des_dungeon_console libtipp_des_dungeon)
+add_dependencies (tipp_des_dungeon_console tipp_des_dungeon)
 
-target_link_libraries(tipp_des_dungeon_console curses libtipp_des_dungeon ${CURSES_LIBRARIES})
+target_link_libraries(tipp_des_dungeon_console curses tipp_des_dungeon ${CURSES_LIBRARIES})

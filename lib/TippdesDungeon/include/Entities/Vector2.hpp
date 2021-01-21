@@ -1,12 +1,14 @@
 #ifndef Vector2_H
 #define Vector2_H
 
+#include <cstdint>
+
 namespace Dungeon {
 typedef struct Vector2 {
-    float x;
-    float y;
+    int32_t x;
+    int32_t y;
     
-    Vector2(float x, float y)
+    Vector2(int32_t x, int32_t y)
         : x(x), y(y)
     {}
 } Vector2_t;

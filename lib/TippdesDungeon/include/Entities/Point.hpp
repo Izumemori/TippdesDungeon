@@ -1,13 +1,15 @@
 #ifndef Point_H
 #define Point_H
 
+#include <cstdint>
+
 namespace Dungeon {
 
 typedef struct Point {
-    float x;
-    float y;
+    int32_t x;
+    int32_t y;
 
-    Point(float x, float y)
+    Point(int32_t x, int32_t y)
         : x(x), y(y)
     {}
 } Point_t;

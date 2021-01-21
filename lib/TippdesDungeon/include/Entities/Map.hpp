@@ -10,8 +10,7 @@ namespace Dungeon {
 class Map {
     public:
         Map();
-        Map(std::vector<GameObject*>& objects);
-        static Map fromAscii(std::string& data);
+        void fromAscii(std::string& data);
         std::vector<GameObject*> objects;
         std::array<std::array<int, 15>, 15> toArray(int x, int y, int maxX, int maxY);
         ~Map();

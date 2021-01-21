@@ -1,15 +1,12 @@
 #include "../../include/Entities/GameObject.hpp"
+#include "../../include/Entities/Wall.hpp"
 #include <cmath>
 
 namespace Dungeon {
-    GameObject::GameObject(const int id, int x, int y, float vx, float vy, int width, int height)
+    GameObject::GameObject(int x, int y, int vx, int vy)
     {
         this->position = std::make_unique<Point_t>(x, y);
         this->velocity = std::make_unique<Vector2_t>(vx, vy);
-
-        this->width = width;
-        this->height = height;
-        this->id = id;
     }
 
     int GameObject::getHeight()
@@ -34,26 +31,9 @@ namespace Dungeon {
 
     bool GameObject::checkCollision(GameObject& other)
     {
-        float x1Min = this->position->x;
-        float x1Max = this->position->x + this->width;
-        float y1Min = this->position->y;
-        float y1Max = this->position->y + this->height;
-
-        
-        float x2Min = other.getPosition().x;
-        float x2Max = other.getPosition().x + other.getWidth();
-        float y2Min = other.getPosition().y;
-        float y2Max = other.getPosition().y + other.getHeight();
-
-        if (x1Max < x2Min || x1Min > x2Max) return false;
-        if (y1Max < y2Min || y1Min > y2Max) return false;
-
-        return true;
-    }
-
-    int GameObject::getId()
-    {
-        return this->id;
+        // TODO: redo these calculations
+        return this->position->x == other.getPosition().x
+            && this->position->y == other.getPosition().y;
     }
 
     void GameObject::handleCollision(GameObject& other) {
@@ -61,6 +41,9 @@ namespace Dungeon {
 
         //TODO: better algorithm
         
+        this->position->x -= this->velocity->x;
+        this->position->y -= this->velocity->y;
+
         this->velocity->x *= -1;
         this->velocity->y *= -1;
     }

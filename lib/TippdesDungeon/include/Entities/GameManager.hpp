@@ -5,7 +5,6 @@
 #include "../Entities/Map.hpp"
 
 #include <memory>
-#include <chrono>
 
 namespace Dungeon {
 
@@ -18,7 +17,6 @@ class GameManager {
 
     private:
         std::unique_ptr<GameData_t> previousGameData;
-        std::unique_ptr<std::chrono::high_resolution_clock::time_point> previousNextInvocation;
         std::unique_ptr<Map> map;
 };
 
