@@ -28,11 +28,11 @@ namespace Dungeon {
                 switch (curr)
                 {
                     case '#':
-                        currObj = new Dungeon::Wall(i, j, 1, 1, 1, 1);
+                        currObj = new Dungeon::Wall(i, j, 0, 0);
                         break;
 
                     case 'E':
-                        currObj = new Dungeon::Entity(0, i, j, 1, 1, 1, 1);
+                        currObj = new Dungeon::Entity(i, j, 1, 1);
                         break;
                 }
 
@@ -68,6 +68,8 @@ namespace Dungeon {
 
             if (dynamic_cast<Entity*>(obj) != nullptr)
                 id = ENEMY_0;
+
+            if ((int)obj->getPosition().x > 14 || (int)obj->getPosition().y > 14) continue;
 
             array[(int)obj->getPosition().x][(int)obj->getPosition().y] = id;
         }

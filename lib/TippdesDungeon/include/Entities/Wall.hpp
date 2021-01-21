@@ -8,8 +8,8 @@ namespace Dungeon {
 class Wall : public GameObject {
 
     public:
-        Wall(int x = 0, int y = 0, float vx = 0.0f, float vy = 0.0f, int width = 0, int height = 0)
-            : GameObject(WALL, x, y, vx, vy, width, height)
+        Wall(int x, int y, int vx, int vy)
+            : GameObject(x, y, vx, vy)
         {}
 
         // Constants 
@@ -28,7 +28,7 @@ class Wall : public GameObject {
             return true;
         }
 
-        void update(GameTime_t& gameTime);
+        void update(const InteractionData_t& interactionData);
         
         ~Wall();
 };

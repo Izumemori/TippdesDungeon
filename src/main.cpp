@@ -48,8 +48,8 @@ int main() {
     while (true) {
         next(gameData, interactionData);
         print(gameData, window);
-
-        usleep(1000);
+    
+        usleep(1000000);
     }
     return 0;
 }
