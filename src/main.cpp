@@ -16,6 +16,10 @@ void print(GameData_t* gameData, WINDOW* window)
             char toPrint = ' ';
 
             switch (gameData->map[j][i]) {
+                case NO_CHANGE:
+                    continue;
+                    break;
+                    
                 case WALL:
                     toPrint = 'X';
                     break;
