@@ -46,6 +46,30 @@ namespace Dungeon {
 
     Map::Map()
     {
+        for (int i = 0; i < 15; i++)
+            for (int j = 0; j < 15; j++)
+                prevMap[i][j] = NO_CHANGE;
+    }
+
+    std::array<std::array<int, 15>, 15> Map::diffArray(std::array<std::array<int, 15>, 15> inArray)
+    {
+        std::array<std::array<int, 15>, 15> outArray;
+        for (int i = 0; i < 15; i++)
+            for (int j = 0; j < 15; j++)
+                outArray[i][j] = NO_CHANGE;
+
+        for(int i = 0; i < 15; i++)
+        {
+            for(int j = 0; j < 15; j++)
+            {
+                if(inArray[i][j] != prevMap[i][j]) {
+                    outArray[i][j] = inArray[i][j];
+                }
+            }
+        }
+        prevMap = inArray;
+
+        return outArray;
     }
 
     std::array<std::array<int, 15>, 15> Map::toArray(int x, int y, int maxX, int maxY)
@@ -74,7 +98,7 @@ namespace Dungeon {
             array[obj->getPosition().x][obj->getPosition().y] = id;
         }
 
-        return array;
+        return diffArray(array);
     }
 
     Map::~Map()

@@ -14,6 +14,9 @@ class Map {
         std::vector<GameObject*> objects;
         std::array<std::array<int, 15>, 15> toArray(int x, int y, int maxX, int maxY);
         ~Map();
+    private:
+        std::array<std::array<int, 15>, 15> prevMap;
+        std::array<std::array<int, 15>, 15> diffArray(std::array<std::array<int, 15>, 15>);
 };
 
 }
