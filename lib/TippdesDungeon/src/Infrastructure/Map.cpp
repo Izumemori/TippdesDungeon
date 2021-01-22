@@ -49,7 +49,8 @@ namespace Dungeon {
                         break;
 
                     case '*':
-                        currObj = std::make_shared<Entities::Door>(i, j);
+                    case '+':
+                        currObj = std::make_shared<Entities::Door>(i, j, curr == '+');
                         break;
 
                     default:
