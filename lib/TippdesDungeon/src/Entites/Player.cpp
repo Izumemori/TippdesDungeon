@@ -59,7 +59,9 @@ namespace Entities {
             
         }
 
-        if (dynamic_cast<Door*>(&other))
+        Door* door;
+
+        if ((door = dynamic_cast<Door*>(&other)) != nullptr && !door->isEntrance)
         {
             this->mapDone = true;
             return;
