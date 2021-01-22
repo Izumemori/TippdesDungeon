@@ -8,6 +8,7 @@
 #define DOOR 4
 #define DEAD 5
 #define SWORD 6
+#define DOOR_CLOSED 7
 
 #define ENEMY_0 100
 #define ENEMY_1 101
@@ -21,6 +22,7 @@
 #define PLAYER_TILE "./img/player.svg"
 #define WALL_TILE "./img/wall.svg"
 #define DOOR_TILE "./img/door.svg"
+#define DOOR_CLOSED_TILE "./img/door.svg"
 #define DEAD_TILE "./img/dead.svg"
 #define SWORD_TILE "./img/sword.svg"
 

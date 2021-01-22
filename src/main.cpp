@@ -37,6 +37,10 @@ void print(GameData_t* gameData, WINDOW* window)
                     toPrint = 'C';
                     break;
                 
+                case DOOR_CLOSED:
+                    toPrint = '+';
+                    break;
+
                 case DOOR:
                     toPrint = '*';
                     break;

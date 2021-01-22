@@ -9,11 +9,11 @@ namespace Entities {
 class Door : public GameObject {
 
     public:
-        Door(int x, int y, bool isEntrance = false)
-            : GameObject(x, y, 0, 0), isEntrance(isEntrance)
+        Door(int x, int y, bool isClosed = false)
+            : GameObject(x, y, 0, 0), isClosed(isClosed)
             {}
 
-        bool isEntrance;
+        bool isClosed;
 
         void update(const InteractionData_t& interactionData);
 
