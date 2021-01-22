@@ -42,8 +42,8 @@ class GameObject {
         int height = 1;
         bool removable = false;
 
-        std::unique_ptr<Vector2_t> velocity;
-        std::unique_ptr<Point_t> position;
+        Vector2_t velocity = Vector2_t(0, 0);
+        Point_t position = Point_t(0, 0);
 };
 
 }

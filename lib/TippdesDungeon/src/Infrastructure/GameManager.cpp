@@ -38,9 +38,24 @@ namespace Dungeon {
 
     void GameManager::next(GameData_t* gameData, const InteractionData_t& interactionData)
     {
+        this->player->update(interactionData);
+
+        for (auto& obj : this->map->objects)
+        {
+            if (this->player->checkCollision(*obj))
+            {
+                this->player->handleCollision(*obj);
+            }
+        }
+    
         for (auto& obj : this->map->objects)
         {
             obj->update(interactionData);
+
+            if (obj->checkCollision(*this->player))
+            {
+                obj->handleCollision(*player);
+            }
 
             for (auto& obj2 : this->map->objects)
             {

@@ -7,15 +7,32 @@ namespace Entities {
 
 class Entity : public GameObject {
     public:
-        Entity(int x, int y, int vx, int vy)
-                : GameObject(x, y, vx, vy)
+        Entity(int x, int y, int vx, int vy, int health = 100, int damage = 10)
+                : GameObject(x, y, vx, vy), health(health), damage(damage)
             {}
 
-        void update(const InteractionData_t& interactionData);
+        virtual void update(const InteractionData_t& interactionData) = 0;
 
-        virtual void handleCollision(GameObject& other);
+        virtual void handleCollision(GameObject& other) = 0;
 
-        ~Entity();
+        int getHealth()
+        {
+            return this->health;
+        }
+
+        int getDamage()
+        {
+            return this->damage;
+        }
+
+        void doDamage(int damage)
+        {
+            this->health -= damage;
+        }
+    
+    protected:
+        int health;
+        int damage;
 };
 
 }

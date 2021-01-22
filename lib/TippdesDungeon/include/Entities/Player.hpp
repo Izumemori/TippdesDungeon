@@ -1,18 +1,18 @@
 #ifndef Player_H
 #define Player_H
 
-#include "GameObject.hpp"
+#include "Entity.hpp"
 
 namespace Dungeon {
 namespace Entities {
 
-class Player : public GameObject {
+class Player : public Entity {
     public:
         Player()
             : Player(0, 0)
             {}
         Player(int x, int y)
-            : GameObject(x, y, 0, 0)
+            : Entity(x, y, 0, 0, 100, 50)
             {}
 
         void update(const InteractionData_t& interactionData);
@@ -34,17 +34,11 @@ class Player : public GameObject {
             return this->coins;
         }
 
-        int getHealth()
-        {
-            return this->health;
-        }
-
         ~Player();
 
         private:
             bool mapDone = false;
             int coins = 0;
-            int health = 0;
 };
 
 }

@@ -13,6 +13,7 @@ class Map {
         Map();
         void fromAscii(std::string& data, std::shared_ptr<Entities::Player>& player);
         std::vector<std::shared_ptr<Entities::GameObject>> objects;
+        std::shared_ptr<Entities::Player> player;
         std::array<std::array<int, 15>, 15> toArray(int x, int y, int maxX, int maxY);
         ~Map();
     private:

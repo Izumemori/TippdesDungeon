@@ -1,6 +1,6 @@
 #include "../../include/Infrastructure/Map.hpp"
 
-#include "../../include/Entities/Entity.hpp"
+#include "../../include/Entities/Enemy.hpp"
 #include "../../include/Entities/Wall.hpp"
 #include "../../include/Entities/Player.hpp"
 #include "../../include/Entities/Coin.hpp"
@@ -12,6 +12,7 @@
 namespace Dungeon {
     void Map::fromAscii(std::string& mapPath, std::shared_ptr<Entities::Player>& player)
     {
+        this->player = player;
         this->objects = {};
         std::ifstream file(mapPath);
 
@@ -36,12 +37,11 @@ namespace Dungeon {
                         break;
 
                     case 'E':
-                        currObj = std::make_shared<Entities::Entity>(i, j, 1, 1);
+                        currObj = std::make_shared<Entities::Enemy>(i, j, 1, 1);
                         break;
 
                     case 'P':
-                        player->moveTo(i, j);
-                        currObj = player;
+                        this->player->moveTo(i, j);
                         break;
                     
                     case 'C':
@@ -57,7 +57,8 @@ namespace Dungeon {
                         continue;
                 }
 
-                this->objects.push_back(std::move(currObj));
+                if (currObj.get() != nullptr)
+                    this->objects.push_back(std::move(currObj));
             }
         }
     }
@@ -110,11 +111,8 @@ namespace Dungeon {
             if (dynamic_cast<Entities::Wall*>(obj.get()) != nullptr)
                 id = WALL;
 
-            if (dynamic_cast<Entities::Entity*>(obj.get()) != nullptr)
+            if (dynamic_cast<Entities::Enemy*>(obj.get()) != nullptr)
                 id = ENEMY_0;
-
-            if (dynamic_cast<Entities::Player*>(obj.get()) != nullptr)
-                id = PLAYER;
 
             if (dynamic_cast<Entities::Coin*>(obj.get()) != nullptr)
                 id = COIN_0;
@@ -125,6 +123,8 @@ namespace Dungeon {
 
             array[obj->getPosition().x][obj->getPosition().y] = id;
         }
+
+        array[player->getPosition().x][player->getPosition().y] = PLAYER;
 
         return diffArray(array);
     }
