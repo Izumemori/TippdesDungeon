@@ -3,6 +3,8 @@
 #include <cmath>
 
 namespace Dungeon {
+namespace Entities {
+
     GameObject::GameObject(int x, int y, int vx, int vy)
     {
         this->position = std::make_unique<Point_t>(x, y);
@@ -52,4 +54,5 @@ namespace Dungeon {
     {
         // TODO
     }
+}
 }

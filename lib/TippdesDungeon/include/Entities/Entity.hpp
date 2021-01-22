@@ -3,31 +3,22 @@
 #include "GameObject.hpp"
 
 namespace Dungeon {
+namespace Entities {
 
 class Entity : public GameObject {
     public:
         Entity(int x, int y, int vx, int vy)
                 : GameObject(x, y, vx, vy)
             {}
-        
-        // Constants
-        bool isEntity() const {
-            return true;
-        }
-
-        bool isWall() const {
-            return false;
-        }
-
-        bool isPickupable() const {
-            return false;
-        };
 
         void update(const InteractionData_t& interactionData);
+
+        virtual void handleCollision(GameObject& other);
 
         ~Entity();
 };
 
+}
 }
 
 #endif // Entity_H

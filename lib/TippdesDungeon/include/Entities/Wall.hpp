@@ -2,8 +2,8 @@
 #define Wall_H
 
 #include "GameObject.hpp"
-
 namespace Dungeon {
+namespace Entities {
 
 class Wall : public GameObject {
 
@@ -12,27 +12,12 @@ class Wall : public GameObject {
             : GameObject(x, y, vx, vy)
         {}
 
-        // Constants 
-        bool isEntity() const
-        {
-        return false;
-        }
-
-        bool isPickupable() const
-        {
-            return false;
-        }
-    
-        bool isWall() const
-        {
-            return true;
-        }
-
         void update(const InteractionData_t& interactionData);
         
         ~Wall();
 };
 
+}
 }
 
 #endif // Wall_H
