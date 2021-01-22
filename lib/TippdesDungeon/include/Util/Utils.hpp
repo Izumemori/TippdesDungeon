@@ -1,3 +1,6 @@
+#ifndef Utils_H
+#define Utils_H
+
 #include  <random>
 #include  <iterator>
 
@@ -14,3 +17,5 @@ Iter select_randomly(Iter start, Iter end) {
     static std::mt19937 gen(rd());
     return select_randomly(start, end, gen);
 }
+
+#endif // Utils_H
