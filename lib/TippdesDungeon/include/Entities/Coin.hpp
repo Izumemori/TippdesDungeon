@@ -1,5 +1,5 @@
 #ifndef Coin_H
-#define Coin_h
+#define Coin_H
 
 #include "Collectable.hpp"
 
