@@ -121,7 +121,7 @@ namespace Dungeon {
 
             Entities::Door* door = nullptr;
             if ((door = dynamic_cast<Entities::Door*>(obj.get())) != nullptr)
-                id = door->isClosed ? DOOR_CLOSED : DOOR;
+                id = door->getClosed() ? DOOR_CLOSED : DOOR;
 
             array[obj->getPosition().x][obj->getPosition().y] = id;
         }

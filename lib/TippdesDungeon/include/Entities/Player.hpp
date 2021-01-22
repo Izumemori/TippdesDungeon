@@ -16,16 +16,35 @@ class Player : public GameObject {
             {}
 
         void update(const InteractionData_t& interactionData);
-
         void moveTo(int x, int y);
-
         void handleCollision(GameObject& other);
+        
+        bool getMapDone()
+        {
+            return this->mapDone;
+        }
+
+        void resetMapDone()
+        {
+            this->mapDone = false;
+        }
+
+        int getCoins()
+        {
+            return this->coins;
+        }
+
+        int getHealth()
+        {
+            return this->health;
+        }
 
         ~Player();
 
-        bool mapDone = false;
-        int coins = 0;
-        int health = 0;
+        private:
+            bool mapDone = false;
+            int coins = 0;
+            int health = 0;
 };
 
 }

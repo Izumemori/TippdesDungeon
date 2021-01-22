@@ -55,7 +55,7 @@ namespace Dungeon {
             this->map->objects.end(), 
             [](std::shared_ptr<Entities::GameObject>& obj) -> bool
                 {
-                    return obj->removable;
+                    return obj->getRemovable();
                 }
         ), this->map->objects.end());
 
@@ -69,15 +69,15 @@ namespace Dungeon {
             }
         }
 
-        if (this->player->mapDone)
+        if (this->player->getMapDone())
         {
-            this->player->mapDone = false;
+            this->player->resetMapDone();
             this->loadRandomMap();
         }
 
         sprintf(gameData->statsText, "Health: %d Coins: %d",
-            this->player->health,
-            this->player->coins);
+            this->player->getHealth(),
+            this->player->getCoins());
     }
 
     GameManager::~GameManager() 

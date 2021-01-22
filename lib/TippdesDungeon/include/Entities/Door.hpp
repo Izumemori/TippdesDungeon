@@ -13,13 +13,17 @@ class Door : public GameObject {
             : GameObject(x, y, 0, 0), isClosed(isClosed)
             {}
 
-        bool isClosed;
 
         void update(const InteractionData_t& interactionData);
-
         void handleCollision(GameObject& other);
+        bool getClosed()
+        {
+            return this->isClosed;
+        }
 
         ~Door();
+    private:
+        bool isClosed;
 };
 
 }

@@ -51,7 +51,7 @@ namespace Entities {
 
             if (res.first)
             {
-                collectable->removable = true;
+                collectable->setRemovable();
                 this->coins += res.second.coins;
 
                 return;
@@ -61,7 +61,7 @@ namespace Entities {
 
         Door* door;
 
-        if ((door = dynamic_cast<Door*>(&other)) != nullptr && !door->isClosed)
+        if ((door = dynamic_cast<Door*>(&other)) != nullptr && !door->getClosed())
         {
             this->mapDone = true;
             return;

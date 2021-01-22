@@ -21,16 +21,26 @@ class GameObject {
         Vector2_t& getVelocity();
         Point_t& getPosition();
 
-        bool removable = false;
 
         virtual void update(const InteractionData_t& interactionData) = 0;
         virtual bool checkCollision(GameObject& other);
         virtual void handleCollision(GameObject& other);
 
+        bool getRemovable()
+        {
+            return this->removable;
+        }
+
+        void setRemovable()
+        {
+            this->removable = true;
+        }
+
         virtual ~GameObject();
     protected:
         int width = 1;
         int height = 1;
+        bool removable = false;
 
         std::unique_ptr<Vector2_t> velocity;
         std::unique_ptr<Point_t> position;
