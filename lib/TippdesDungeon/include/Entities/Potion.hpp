@@ -6,19 +6,17 @@
 namespace Dungeon {
 namespace Entities {
 
-class Coin : public Collectable {
+class Potion : public Collectable {
     public:
-        Coin(int x, int y, int value);
+        Potion(int x, int y, int value);
 
         std::pair<bool, CollectableResult_t> tryCollect(Player& player);
 
         void update(const InteractionData_t& interactionData);
 
-        int getValue();
-
         void handleCollision(GameObject& other);
 
-        ~Coin();
+        ~Potion();
 
     private:
         int value;

@@ -114,8 +114,9 @@ namespace Dungeon {
             if (dynamic_cast<Entities::Enemy*>(obj.get()) != nullptr)
                 id = ENEMY_0;
 
-            if (dynamic_cast<Entities::Coin*>(obj.get()) != nullptr)
-                id = COIN_0;
+            Entities::Coin* coin = nullptr;
+            if ((coin = dynamic_cast<Entities::Coin*>(obj.get())) != nullptr)
+                id = (coin->getValue() >= 50) ? COIN_1 : COIN_0;
 
             Entities::Door* door = nullptr;
             if ((door = dynamic_cast<Entities::Door*>(obj.get())) != nullptr)
