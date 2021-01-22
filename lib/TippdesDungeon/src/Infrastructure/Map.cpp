@@ -48,7 +48,7 @@ namespace Dungeon {
                         currObj = std::make_shared<Entities::Coin>(i, j, 50); // TODO: Randomize coins
                         break;
 
-                    case '+':
+                    case '*':
                         currObj = std::make_shared<Entities::Door>(i, j);
                         break;
 

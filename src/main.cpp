@@ -38,7 +38,7 @@ void print(GameData_t* gameData, WINDOW* window)
                     break;
                 
                 case DOOR:
-                    toPrint = '+';
+                    toPrint = '*';
                     break;
             }
             
@@ -54,7 +54,7 @@ void print(GameData_t* gameData, WINDOW* window)
 
 int main() {
 
-    init("./maps/");
+    init("../../maps/");
         
     auto gameData = new GameData_t();
 
