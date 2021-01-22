@@ -14,6 +14,8 @@ class Coin : public Collectable {
 
         void update(const InteractionData_t& interactionData);
 
+        int getValue();
+
         void handleCollision(GameObject& other);
 
         ~Coin();

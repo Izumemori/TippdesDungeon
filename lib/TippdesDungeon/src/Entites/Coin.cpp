@@ -17,6 +17,11 @@ namespace Entities {
         return std::pair<bool, CollectableResult_t>(true, CollectableResult_t(this->value));
     }
 
+    int Coin::getValue()
+    {
+        return this->value;
+    }
+
     void Coin::handleCollision(GameObject& other)
     {
         return;
