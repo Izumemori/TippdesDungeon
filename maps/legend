@@ -2,6 +2,7 @@
 P = player starting position (?)
 E = enemy
 C = collectible
+* = Door
 
 template:
 ###############
