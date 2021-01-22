@@ -14,11 +14,11 @@ void print(GameData_t* gameData, WINDOW* window)
         {
             wmove(window, j, i);
 
-            char toPrint = '{';
+            char toPrint = ' ';
 
             switch (gameData->map[j][i]) {
-                case FLOOR:
-                    toPrint = ' ';
+                case NO_CHANGE:
+                    continue;
                     break;
 
                 case WALL:
@@ -42,8 +42,7 @@ void print(GameData_t* gameData, WINDOW* window)
                     break;
             }
             
-            if (toPrint != '{')
-                waddch(window, toPrint);
+            waddch(window, toPrint);
         }
     }
 
