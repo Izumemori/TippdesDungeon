@@ -94,7 +94,6 @@ namespace Dungeon {
             }
         }
 
-        
         if (this->player->getMapDone())
         {
             sprintf(gameData->statsText, "Press %s to continue", "E");
@@ -104,6 +103,12 @@ namespace Dungeon {
         sprintf(gameData->statsText, "Health: %d Coins: %d",
             this->player->getHealth(),
             this->player->getCoins());
+
+        if(this->player->getHealth() <= 0)
+        {
+            gameData->gameEnd = true;
+            gameData->map[player->getPosition().x][player->getPosition().y] = DEAD;
+        }
     }
 
     GameManager::~GameManager() 

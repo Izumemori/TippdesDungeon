@@ -6,6 +6,7 @@
 typedef struct GameData {
     int map[15][15];
     char statsText[50];
+    bool gameEnd = false;
 } GameData_t;
 
 typedef struct InteractionData {
