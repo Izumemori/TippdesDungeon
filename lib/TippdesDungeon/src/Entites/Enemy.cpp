@@ -14,9 +14,9 @@ namespace Entities {
 
     void Enemy::handleCollision(GameObject& other)
     {
-        Player* player = nullptr;
+        Player* player = dynamic_cast<Player*>(&other);
 
-        if (player = dynamic_cast<Player*>(&other))
+        if (player != nullptr)
         {
             player->doDamage(this->damage);
         }
