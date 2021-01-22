@@ -63,7 +63,6 @@ namespace Entities {
         if ((door = dynamic_cast<Door*>(&other)) != nullptr && !door->getClosed())
         {
             this->mapDone = true;
-            return;
         }
 
         Enemy* entity;

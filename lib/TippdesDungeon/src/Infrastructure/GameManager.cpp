@@ -38,6 +38,16 @@ namespace Dungeon {
 
     void GameManager::next(GameData_t* gameData, const InteractionData_t& interactionData)
     {
+        if (this->player->getMapDone() && interactionData.input == 'e')
+        {
+            this->player->resetMapDone();
+            this->loadRandomMap();
+        }
+        else if (this->player->getMapDone() && interactionData.input != 'e')
+        {
+            return;
+        }
+
         this->player->update(interactionData, this->map.get());
 
         for (auto& obj : this->map->objects)
@@ -84,10 +94,11 @@ namespace Dungeon {
             }
         }
 
+        
         if (this->player->getMapDone())
         {
-            this->player->resetMapDone();
-            this->loadRandomMap();
+            sprintf(gameData->statsText, "Press %s to continue", "E");
+            return;
         }
 
         sprintf(gameData->statsText, "Health: %d Coins: %d",
