@@ -11,7 +11,7 @@ class Entity : public GameObject {
                 : GameObject(x, y, vx, vy), health(health), damage(damage)
             {}
 
-        virtual void update(const InteractionData_t& interactionData) = 0;
+        virtual void update(const InteractionData_t& interactionData, const Map* map) = 0;
 
         virtual void handleCollision(GameObject& other) = 0;
 

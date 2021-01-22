@@ -12,7 +12,7 @@ class Coin : public Collectable {
 
         std::pair<bool, CollectableResult_t> tryCollect(Player& player);
 
-        void update(const InteractionData_t& interactionData);
+        void update(const InteractionData_t& interactionData, const Map* map);
 
         int getValue();
 

@@ -9,6 +9,9 @@
 #include "../External/TippdesDungeon.hpp"
 
 namespace Dungeon {
+
+class Map;
+
 namespace Entities {
 
 class GameObject {
@@ -21,8 +24,7 @@ class GameObject {
         Vector2_t& getVelocity();
         Point_t& getPosition();
 
-
-        virtual void update(const InteractionData_t& interactionData) = 0;
+        virtual void update(const InteractionData_t& interactionData, const Map* map) = 0;
         virtual bool checkCollision(GameObject& other);
         virtual void handleCollision(GameObject& other);
 

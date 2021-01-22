@@ -15,7 +15,7 @@ class Player : public Entity {
             : Entity(x, y, 0, 0, 100, 50)
             {}
 
-        void update(const InteractionData_t& interactionData);
+        void update(const InteractionData_t& interactionData, const Map* map);
         void moveTo(int x, int y);
         void handleCollision(GameObject& other);
         

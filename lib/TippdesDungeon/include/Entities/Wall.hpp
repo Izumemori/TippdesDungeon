@@ -12,7 +12,7 @@ class Wall : public GameObject {
             : GameObject(x, y, vx, vy)
         {}
 
-        void update(const InteractionData_t& interactionData);
+        void update(const InteractionData_t& interactionData, const Map* map);
         
         ~Wall();
 };

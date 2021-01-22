@@ -8,7 +8,7 @@
 namespace Dungeon {
 namespace Entities {
 
-    void Player::update(const InteractionData_t& interactionData)
+    void Player::update(const InteractionData_t& interactionData, const Map* map)
     {
         this->velocity.x = 0;
         this->velocity.y = 0;

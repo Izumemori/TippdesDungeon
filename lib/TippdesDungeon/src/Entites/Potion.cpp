@@ -9,7 +9,7 @@ namespace Entities {
         this->value = value;
     }
     
-    void Potion::update(const InteractionData_t& interactionData)
+    void Potion::update(const InteractionData_t& interactionData, const Map* map)
     {}
 
     std::pair<bool, CollectableResult_t> Potion::tryCollect(Player& player)

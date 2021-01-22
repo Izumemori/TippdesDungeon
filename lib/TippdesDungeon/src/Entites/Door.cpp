@@ -3,7 +3,7 @@
 namespace Dungeon {
 namespace Entities {
 
-    void Door::update(const InteractionData_t& interactionData)
+    void Door::update(const InteractionData_t& interactionData, const Map* map)
     {
 
     }

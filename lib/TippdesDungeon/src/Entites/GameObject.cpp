@@ -33,8 +33,6 @@ namespace Entities {
 
     bool GameObject::checkCollision(GameObject& other)
     {
-        if (&other == nullptr) return false;
-
         // TODO: redo these calculations
         return this->position.x == other.getPosition().x
             && this->position.y == other.getPosition().y;

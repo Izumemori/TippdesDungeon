@@ -38,7 +38,7 @@ namespace Dungeon {
 
     void GameManager::next(GameData_t* gameData, const InteractionData_t& interactionData)
     {
-        this->player->update(interactionData);
+        this->player->update(interactionData, this->map.get());
 
         for (auto& obj : this->map->objects)
         {
@@ -50,7 +50,7 @@ namespace Dungeon {
     
         for (auto& obj : this->map->objects)
         {
-            obj->update(interactionData);
+            obj->update(interactionData, this->map.get());
 
             if (obj->checkCollision(*this->player))
             {

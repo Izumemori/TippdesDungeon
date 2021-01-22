@@ -1,5 +1,5 @@
-#ifndef Coin_H
-#define Coin_H
+#ifndef Potion_H
+#define Potion_H
 
 #include "Collectable.hpp"
 
@@ -12,7 +12,7 @@ class Potion : public Collectable {
 
         std::pair<bool, CollectableResult_t> tryCollect(Player& player);
 
-        void update(const InteractionData_t& interactionData);
+        void update(const InteractionData_t& interactionData, const Map* map);
 
         void handleCollision(GameObject& other);
 
@@ -25,4 +25,4 @@ class Potion : public Collectable {
 }
 }
 
-#endif // Coin_H
+#endif // Potion_H

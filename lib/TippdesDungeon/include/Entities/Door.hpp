@@ -14,7 +14,7 @@ class Door : public GameObject {
             {}
 
 
-        void update(const InteractionData_t& interactionData);
+        void update(const InteractionData_t& interactionData, const Map* map);
         void handleCollision(GameObject& other);
         bool getClosed()
         {

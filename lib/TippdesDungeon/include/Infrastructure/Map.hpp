@@ -7,7 +7,6 @@
 #include <vector>
 
 namespace Dungeon {
-
 class Map {
     public:
         Map();
