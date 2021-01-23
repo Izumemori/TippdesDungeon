@@ -53,6 +53,9 @@ namespace Entities {
             {
                 collectable->setRemovable();
                 this->coins += res.second.coins;
+                this->health += res.second.health;
+
+                this->health = std::min(this->maxHealth, this->health);
 
                 return;
             }

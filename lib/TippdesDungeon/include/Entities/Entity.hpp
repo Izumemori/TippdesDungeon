@@ -8,7 +8,7 @@ namespace Entities {
 class Entity : public GameObject {
     public:
         Entity(int x, int y, int vx, int vy, int health = 100, int damage = 10)
-                : GameObject(x, y, vx, vy), health(health), damage(damage)
+                : GameObject(x, y, vx, vy), health(health), damage(damage), maxHealth(health)
             {}
 
         virtual void update(const InteractionData_t& interactionData, const Map* map) = 0;
@@ -32,6 +32,7 @@ class Entity : public GameObject {
     
     protected:
         int health;
+        int maxHealth;
         int damage;
 };
 

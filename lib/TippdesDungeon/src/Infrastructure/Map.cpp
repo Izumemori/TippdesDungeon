@@ -5,9 +5,11 @@
 #include "../../include/Entities/Player.hpp"
 #include "../../include/Entities/Coin.hpp"
 #include "../../include/Entities/Door.hpp"
+#include "../../include/Entities/Potion.hpp"
 
 #include <fstream>
 #include <iostream>
+#include <cmath>
 
 namespace Dungeon {
     void Map::fromAscii(std::string& mapPath, std::shared_ptr<Entities::Player>& player)
@@ -45,7 +47,17 @@ namespace Dungeon {
                         break;
                     
                     case 'C':
-                        currObj = std::make_shared<Entities::Coin>(i, j, 50); // TODO: Randomize coins
+                        switch (rand() % 5)
+                        {
+                            case 0:
+                            case 1:
+                                currObj = std::make_shared<Entities::Potion>(i, j, std::max(5, rand() % 15));
+                                break;
+
+                            default:
+                                currObj = std::make_shared<Entities::Coin>(i, j, std::max(10, rand() % 100)); // TODO: Randomize coins
+                                break;
+                        }
                         break;
 
                     case '*':
@@ -113,6 +125,9 @@ namespace Dungeon {
 
             if (dynamic_cast<Entities::Enemy*>(obj.get()) != nullptr)
                 id = ENEMY_0;
+
+            if (dynamic_cast<Entities::Potion*>(obj.get()) != nullptr)
+                id = POTION_0;
 
             Entities::Coin* coin = nullptr;
             if ((coin = dynamic_cast<Entities::Coin*>(obj.get())) != nullptr)

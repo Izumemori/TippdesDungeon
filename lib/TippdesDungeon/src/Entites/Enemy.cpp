@@ -11,7 +11,7 @@ namespace Entities {
     {
         float diffX = map->player->getPosition().x - (float)this->position.x;
         float diffY = map->player->getPosition().y - (float)this->position.y;
-        float square = diffX*diffX + diffY*diffY;
+        float square = diffX * diffX + diffY * diffY;
 
         if (square <= 4)
         {
@@ -44,7 +44,7 @@ namespace Entities {
                 this->position.y + 
                     ((rand() % 5) * (rand() % 10) > 5 ? 1 : -1));
         }
-        
+
         GameObject::handleCollision(other);
     }
 

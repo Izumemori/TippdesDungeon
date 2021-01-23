@@ -14,7 +14,7 @@ namespace Entities {
 
     std::pair<bool, CollectableResult_t> Potion::tryCollect(Player& player)
     {
-        return std::pair<bool, CollectableResult_t>(true, CollectableResult_t(this->value));
+        return std::pair<bool, CollectableResult_t>(true, CollectableResult_t(0, this->value));
     }
 
     void Potion::handleCollision(GameObject& other)

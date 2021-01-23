@@ -34,6 +34,10 @@ void print(GameData_t* gameData, WINDOW* window)
                     break;
 
                 case COIN_0:
+                    toPrint = 'c';
+                    break;
+
+                case COIN_1:
                     toPrint = 'C';
                     break;
                 
@@ -43,6 +47,10 @@ void print(GameData_t* gameData, WINDOW* window)
 
                 case DOOR:
                     toPrint = '*';
+                    break;
+                
+                case POTION_0:
+                    toPrint = 'p';
                     break;
             }
             
@@ -69,13 +77,13 @@ int main() {
 
 
     while (true) {
-        nodelay(window, true);
-        interactionData.input = wgetch(window);
+        //nodelay(window, true);
 
         next(gameData, interactionData);
         print(gameData, window);
-    
-        usleep(100000);
+
+        interactionData.input = wgetch(window);
+        //usleep(100000);
     }
     return 0;
 }

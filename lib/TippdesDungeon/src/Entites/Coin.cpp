@@ -14,7 +14,7 @@ namespace Entities {
 
     std::pair<bool, CollectableResult_t> Coin::tryCollect(Player& player)
     {
-        return std::pair<bool, CollectableResult_t>(true, CollectableResult_t(this->value));
+        return std::pair<bool, CollectableResult_t>(true, CollectableResult_t(this->value, 0));
     }
 
     int Coin::getValue()
