@@ -39,7 +39,48 @@ namespace Dungeon {
                         break;
 
                     case 'E':
-                        currObj = std::make_shared<Entities::Enemy>(i, j, 1, 1);
+                        {
+                        int health = 100;
+                        int damage = 1;
+                        float playerSeekRadius = 0;
+                        EnemyType type = EnemyType::Blob;
+                        
+                        switch (rand() % 9)
+                        {
+                            // blob
+                            case 0:
+                            case 1:
+                            case 2:
+                            case 3:
+                                health = 50;
+                                damage = 5;
+                                playerSeekRadius = 0;
+                                type = EnemyType::Blob;
+                                break;
+
+                            // snake
+                            case 4:
+                            case 5:
+                            case 6:
+                                health = 100;
+                                damage = 2;
+                                playerSeekRadius = 4;
+                                type = EnemyType::Snake;
+                                break;
+
+                            // ghost
+                            case 7:
+                            case 8:
+                                health = 50;
+                                damage = 1;
+                                playerSeekRadius = 9;
+                                type = EnemyType::Ghost;
+                                break;
+                                
+                        }
+
+                        currObj = std::make_shared<Entities::Enemy>(type, i, j, 1, 1, health, damage, playerSeekRadius);
+                        }
                         break;
 
                     case 'P':
@@ -123,8 +164,22 @@ namespace Dungeon {
             if (dynamic_cast<Entities::Wall*>(obj.get()) != nullptr)
                 id = WALL;
 
-            if (dynamic_cast<Entities::Enemy*>(obj.get()) != nullptr)
-                id = ENEMY_0;
+            Entities::Enemy* enemy = nullptr;
+            if ((enemy = dynamic_cast<Entities::Enemy*>(obj.get())) != nullptr)
+            {
+                switch (enemy->getType())
+                {
+                    case EnemyType::Blob:
+                        id = ENEMY_0;
+                        break;
+                    case EnemyType::Snake:
+                        id = ENEMY_1;
+                        break;
+                    case EnemyType::Ghost:
+                        id = ENEMY_2;
+                        break;
+                }
+            }
 
             if (dynamic_cast<Entities::Potion*>(obj.get()) != nullptr)
                 id = POTION_0;

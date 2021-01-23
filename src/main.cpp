@@ -26,7 +26,15 @@ void print(GameData_t* gameData, WINDOW* window)
                     break;
                 
                 case ENEMY_0:
-                    toPrint = 'E';
+                    toPrint = 'B';
+                    break;
+
+                case ENEMY_1:
+                    toPrint = 'S';
+                    break;
+
+                case ENEMY_2:
+                    toPrint = 'G';
                     break;
 
                 case PLAYER:

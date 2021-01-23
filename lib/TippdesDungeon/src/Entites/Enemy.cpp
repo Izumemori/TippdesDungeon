@@ -13,7 +13,7 @@ namespace Entities {
         float diffY = map->player->getPosition().y - (float)this->position.y;
         float square = diffX * diffX + diffY * diffY;
 
-        if (square <= 4)
+        if (square <= this->playerSeekRadius)
         {
             this->target = map->player->getPosition();
         }
