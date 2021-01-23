@@ -108,6 +108,8 @@ namespace Dungeon {
         {
             gameData->gameEnd = true;
             gameData->map[player->getPosition().x][player->getPosition().y] = DEAD;
+            sprintf(gameData->statsText, "You are dead, Coins: %d",
+                this->player->getCoins());
         }
     }
 
