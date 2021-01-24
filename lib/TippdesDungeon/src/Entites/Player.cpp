@@ -2,8 +2,10 @@
 #include "../../include/Entities/Collectable.hpp"
 #include "../../include/Entities/Door.hpp"
 #include "../../include/Entities/Enemy.hpp"
+#include "../../include/Entities/Powerup.hpp"
 
 #include <iostream>
+#include <sstream>
 
 namespace Dungeon {
 namespace Entities {
@@ -47,17 +49,66 @@ namespace Entities {
         Collectable* collectable;
         if ((collectable = dynamic_cast<Collectable*>(&other)) != nullptr)
         {
-            auto res = collectable->tryCollect(*this);
-
-            if (res.first)
+            Powerup* powerup;
+            if ((powerup = dynamic_cast<Powerup*>(collectable)) != nullptr)
             {
-                collectable->setRemovable();
-                this->coins += res.second.coins;
-                this->health += res.second.health;
+                std::string text = "";
+                std::function<bool(const InteractionData_t&)> handler;
 
-                this->health = std::min(this->maxHealth, this->health);
+                auto res = powerup->tryCollect(*this);
+                std::stringstream ss;
 
-                return;
+                bool shouldLock = false;
+
+                if (res.first)
+                {
+                    ss << "Press E to buy for " << powerup->getCost() << " Coins\n"
+                       << "Press C to cancel";
+
+                    shouldLock = true;
+                    handler = [res, this, powerup](const InteractionData_t& interaction) -> bool {
+                        if (interaction.input == 'e' || interaction.input == 'E')
+                        {
+                            res.second.function(this);
+
+                            this->coins += res.second.coins;
+                            powerup->setRemovable();
+                            
+                            return true;
+                        }
+                        else if (interaction.input == 'c' || interaction.input == 'C')
+                        {
+                            return true;
+                        }
+                        
+                        return false;
+                    };
+                }
+                else
+                {
+                    ss << "This item is too expensive!\n"
+                       << "You're " << (powerup->getCost() - this->coins) << " Coins short!";
+                    handler = [](const InteractionData_t& data){ return true; };
+                }
+
+                text = ss.str();
+
+                this->handler = std::make_unique<InteractionHandler_t>(text, handler, shouldLock);
+            }
+            else
+            {
+                auto res = collectable->tryCollect(*this);
+
+                if (res.first)
+                {
+                    collectable->setRemovable();
+                    this->coins += res.second.coins;
+                    this->health += res.second.health;
+
+                    this->health = std::min(this->maxHealth, this->health);
+
+                    return;
+                }
             }
             
         }
@@ -65,7 +116,16 @@ namespace Entities {
         Door* door;
         if ((door = dynamic_cast<Door*>(&other)) != nullptr && !door->getClosed())
         {
-            this->mapDone = true;
+            this->handler = std::make_unique<InteractionHandler_t>("Press E to leave the room", 
+                [this](const InteractionData_t& data) -> bool
+                {
+                    if (data.input == 'e' || data.input == 'E')
+                    {
+                        this->mapDone = true;
+                    }
+
+                    return true;
+                });
         }
 
         Enemy* entity;

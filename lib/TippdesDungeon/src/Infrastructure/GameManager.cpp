@@ -18,34 +18,64 @@ namespace Dungeon {
         this->loadRandomMap();
     }
 
+    void fillMessage(GameData_t* gameData, std::string message)
+    {
+        std::istringstream streamMessage(message);
+        std::string lineOne;
+        std::string lineTwo;
+        getline(streamMessage, lineOne);
+        getline(streamMessage, lineTwo);
+
+        sprintf(gameData->messageText[0], lineOne.c_str());
+        sprintf(gameData->messageText[1], lineTwo.c_str());
+    }
+
     void GameManager::loadRandomMap()
     {
         std::vector<std::string> maps = {};
+        std::vector<std::string> shops = {};
 
         for (auto item : std::filesystem::directory_iterator(this->mapBasePath, std::filesystem::directory_options::skip_permission_denied))
         {
-            if (item.path().stem().string().rfind("map", 0) == 0)
-            {
+            auto stem = item.path().stem().string();
+
+            if (stem.rfind("map", 0) == 0)
                 maps.push_back(item.path().string());
-            }
+            else if (stem.rfind("shop", 0) == 0)
+                shops.push_back(item.path().string());
+
         }
 
-        auto res = *select_randomly(maps.begin(), maps.end());
-        
+        std::string res;
+        if (this->mapCount % 4 == 0)
+            res = *select_randomly(shops.begin(), shops.end());
+        else 
+            res = *select_randomly(maps.begin(), maps.end());
+
         this->map->objects.clear();
         this->map->fromAscii(res, this->player);
+        this->mapCount++;
     }
 
     void GameManager::next(GameData_t* gameData, const InteractionData_t& interactionData)
     {
-        if (this->player->getMapDone() && interactionData.input == 'e')
+        fillMessage(gameData, " \n ");
+
+        if (this->player->getHandler().get() != nullptr)
+        {
+            if (this->player->getHandler()->handler(interactionData))
+                std::unique_ptr<InteractionHandler_t> tmp = std::move(this->player->getHandler());
+            else fillMessage(gameData, this->player->getHandler()->message);
+
+
+            if (this->player->getHandler().get() != nullptr && this->player->getHandler()->shouldLock)
+                return;
+        }
+        
+        if (this->player->getMapDone())
         {
             this->player->resetMapDone();
             this->loadRandomMap();
-        }
-        else if (this->player->getMapDone() && interactionData.input != 'e')
-        {
-            return;
         }
 
         this->player->update(interactionData, this->map.get());
@@ -94,23 +124,22 @@ namespace Dungeon {
             }
         }
 
-        if (this->player->getMapDone())
-        {
-            sprintf(gameData->statsText, "Press %s to continue", "E");
-            return;
-        }
-
-        sprintf(gameData->statsText, "Health: %d Coins: %d",
-            this->player->getHealth(),
-            this->player->getCoins());
+        gameData->damage = this->player->getDamage();
+        gameData->health = this->player->getHealth();
+        gameData->maxHealth = this->player->getMaxHealth();
+        gameData->coins = this->player->getCoins();
 
         if(this->player->getHealth() <= 0)
         {
             gameData->gameEnd = true;
             gameData->map[player->getPosition().x][player->getPosition().y] = DEAD;
-            sprintf(gameData->statsText, "You are dead, Coins: %d",
+            sprintf(gameData->messageText[0], "You are dead");
+            sprintf(gameData->messageText[1], "Coins: %d",
                 this->player->getCoins());
         }
+
+        if (this->player->getHandler().get() != nullptr)
+            fillMessage(gameData, this->player->getHandler()->message);
     }
 
     GameManager::~GameManager() 

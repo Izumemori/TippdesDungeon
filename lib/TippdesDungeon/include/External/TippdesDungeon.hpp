@@ -5,7 +5,11 @@
 
 typedef struct GameData {
     int map[15][15];
-    char statsText[50];
+    char messageText[2][50];
+    int health;
+    int maxHealth;
+    int damage;
+    int coins;
     bool gameEnd = false;
 } GameData_t;
 

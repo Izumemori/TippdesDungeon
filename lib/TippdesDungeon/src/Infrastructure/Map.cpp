@@ -1,4 +1,6 @@
 #include "../../include/Infrastructure/Map.hpp"
+#include "../../include/Util/PowerupType.hpp"
+#include "../../include/Util/EnemyType.hpp"
 
 #include "../../include/Entities/Enemy.hpp"
 #include "../../include/Entities/Wall.hpp"
@@ -6,6 +8,7 @@
 #include "../../include/Entities/Coin.hpp"
 #include "../../include/Entities/Door.hpp"
 #include "../../include/Entities/Potion.hpp"
+#include "../../include/Entities/Powerup.hpp"
 
 #include <fstream>
 #include <iostream>
@@ -106,6 +109,36 @@ namespace Dungeon {
                         currObj = std::make_shared<Entities::Door>(i, j, curr == '+');
                         break;
 
+                    case 'p':
+                    {
+                        std::function<void(Entities::Player*)> effect;
+                        PowerupType type;
+                        int cost = 0;
+                        switch (rand() % 2)
+                        {
+                            // damage up/sword
+                            case 0:
+                                type = PowerupType::Sword;
+                                cost = 100;
+                                effect = [](Entities::Player* p){
+                                    p ->addDamage(10);
+                                };
+                                break;
+                            
+                            case 1:
+                                type = PowerupType::Heart;
+                                cost = 50;
+                                effect = [](Entities::Player* p){
+                                    p->addMaxHealth(10);
+                                    p->addHealth(10);
+                                };
+                                break;
+                        }
+
+                        currObj = std::make_shared<Entities::Powerup>(type, i, j, cost, effect);
+                    }
+                    break;
+
                     default:
                         continue;
                 }
@@ -192,6 +225,20 @@ namespace Dungeon {
             if ((door = dynamic_cast<Entities::Door*>(obj.get())) != nullptr)
                 id = door->getClosed() ? DOOR_CLOSED : DOOR;
 
+            Entities::Powerup* powerup = nullptr;
+            if ((powerup = dynamic_cast<Entities::Powerup*>(obj.get())) != nullptr)
+            {
+                switch (powerup->getType())
+                {
+                    case PowerupType::Sword:
+                        id = SWORD;
+                        break;
+                    case PowerupType::Heart:
+                        id = HEART;
+                        break;
+                }
+            }
+
             array[obj->getPosition().x][obj->getPosition().y] = id;
         }
 
@@ -203,5 +250,4 @@ namespace Dungeon {
     Map::~Map()
     {
     }
-
 }

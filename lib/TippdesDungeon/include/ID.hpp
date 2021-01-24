@@ -9,6 +9,7 @@
 #define DEAD 5
 #define SWORD 6
 #define DOOR_CLOSED 7
+#define HEART 8
 
 #define ENEMY_0 100
 #define ENEMY_1 101
@@ -25,6 +26,7 @@
 #define DOOR_CLOSED_TILE "./img/door_closed.svg"
 #define DEAD_TILE "./img/dead.svg"
 #define SWORD_TILE "./img/sword.svg"
+#define HEART_TILE "./img/heart.svg"
 
 #define ENEMY_0_TILE "./img/enemy_0.svg"
 #define ENEMY_1_TILE "./img/enemy_1.svg"
