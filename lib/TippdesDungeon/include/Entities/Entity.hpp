@@ -33,6 +33,7 @@ class Entity : public GameObject {
         void doDamage(int damage)
         {
             this->health -= damage;
+            this->health = std::max(this->health, 0);
         }
     
     protected:

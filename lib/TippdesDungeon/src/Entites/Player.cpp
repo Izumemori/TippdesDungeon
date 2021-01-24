@@ -133,7 +133,7 @@ namespace Entities {
         {
             entity->doDamage(this->damage);
 
-            if (entity->getHealth() < 0)
+            if (entity->getHealth() <= 0)
             {
                 entity->setRemovable();
                 return;

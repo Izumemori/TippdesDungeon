@@ -42,6 +42,7 @@ class Player : public Entity {
         void addHealth(int amount)
         {
             this->health += amount;
+            this->health = std::min(this->health, this->maxHealth);
         }
 
         void addMaxHealth(int amount)

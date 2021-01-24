@@ -87,7 +87,15 @@ namespace Dungeon {
                 this->player->handleCollision(*obj);
             }
         }
-    
+
+         this->map->objects.erase(std::remove_if(this->map->objects.begin(),
+            this->map->objects.end(), 
+            [](std::shared_ptr<Entities::GameObject>& obj) -> bool
+                {
+                    return obj->getRemovable();
+                }
+        ), this->map->objects.end()); // Remove entities the player has killed
+
         for (auto& obj : this->map->objects)
         {
             obj->update(interactionData, this->map.get());
