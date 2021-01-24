@@ -130,9 +130,9 @@ namespace Dungeon {
                                 cost = 50;
                                 effect = [](Entities::Player* p){
                                     p->addMaxHealth(10);
+                                    p->addHealth(10);
                                 };
                                 break;
-
                         }
 
                         currObj = std::make_shared<Entities::Powerup>(type, i, j, cost, effect);
@@ -250,5 +250,4 @@ namespace Dungeon {
     Map::~Map()
     {
     }
-
 }

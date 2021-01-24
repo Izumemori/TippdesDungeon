@@ -39,6 +39,11 @@ class Player : public Entity {
             return this->handler;
         }
 
+        void addHealth(int amount)
+        {
+            this->health += amount;
+        }
+
         void addMaxHealth(int amount)
         {
             this->maxHealth += amount;

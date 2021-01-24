@@ -37,6 +37,7 @@ void print(GameData_t* gameData, WINDOW* window)
                     toPrint = 'G';
                     break;
 
+                case DEAD:
                 case PLAYER:
                     toPrint = 'P';
                     break;
@@ -75,7 +76,7 @@ void print(GameData_t* gameData, WINDOW* window)
     }
 
     wmove(window, 17, 5);
-    waddstr(window, gameData->statsText);
+    waddstr(window, gameData->messageText[0]);
 
     wrefresh(window);
 }

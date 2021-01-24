@@ -58,11 +58,16 @@ namespace Entities {
                 auto res = powerup->tryCollect(*this);
                 std::stringstream ss;
 
+                bool shouldLock = false;
+
                 if (res.first)
                 {
-                    ss << "Press 'e' to buy for " << powerup->getCost();
+                    ss << "Press E to buy for " << powerup->getCost() << " Coins\n"
+                       << "Press C to cancel";
+
+                    shouldLock = true;
                     handler = [res, this, powerup](const InteractionData_t& interaction) -> bool {
-                        if (interaction.input == 'e')
+                        if (interaction.input == 'e' || interaction.input == 'E')
                         {
                             res.second.function(this);
 
@@ -71,7 +76,7 @@ namespace Entities {
                             
                             return true;
                         }
-                        else if (interaction.input == 'c')
+                        else if (interaction.input == 'c' || interaction.input == 'C')
                         {
                             return true;
                         }
@@ -81,13 +86,14 @@ namespace Entities {
                 }
                 else
                 {
-                    ss << "This item is too expensive! You're " << (powerup->getCost() - this->coins) << " Coins short!";
+                    ss << "This item is too expensive!\n"
+                       << "You're " << (powerup->getCost() - this->coins) << " Coins short!";
                     handler = [](const InteractionData_t& data){ return true; };
                 }
 
                 text = ss.str();
 
-                this->handler = std::make_unique<InteractionHandler_t>(text, handler);
+                this->handler = std::make_unique<InteractionHandler_t>(text, handler, shouldLock);
             }
             else
             {
@@ -110,17 +116,15 @@ namespace Entities {
         Door* door;
         if ((door = dynamic_cast<Door*>(&other)) != nullptr && !door->getClosed())
         {
-            this->handler = std::make_unique<InteractionHandler_t>("Press E to continue", 
+            this->handler = std::make_unique<InteractionHandler_t>("Press E to leave the room", 
                 [this](const InteractionData_t& data) -> bool
                 {
                     if (data.input == 'e' || data.input == 'E')
                     {
                         this->mapDone = true;
-
-                        return true;
                     }
 
-                    return false;
+                    return true;
                 });
         }
 

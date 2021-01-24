@@ -18,6 +18,18 @@ namespace Dungeon {
         this->loadRandomMap();
     }
 
+    void fillMessage(GameData_t* gameData, std::string message)
+    {
+        std::istringstream streamMessage(message);
+        std::string lineOne;
+        std::string lineTwo;
+        getline(streamMessage, lineOne);
+        getline(streamMessage, lineTwo);
+
+        sprintf(gameData->messageText[0], lineOne.c_str());
+        sprintf(gameData->messageText[1], lineTwo.c_str());
+    }
+
     void GameManager::loadRandomMap()
     {
         std::vector<std::string> maps = {};
@@ -47,13 +59,17 @@ namespace Dungeon {
 
     void GameManager::next(GameData_t* gameData, const InteractionData_t& interactionData)
     {
+        fillMessage(gameData, " \n ");
+
         if (this->player->getHandler().get() != nullptr)
         {
             if (this->player->getHandler()->handler(interactionData))
-            {
                 std::unique_ptr<InteractionHandler_t> tmp = std::move(this->player->getHandler());
-            }
-            else return;
+            else fillMessage(gameData, this->player->getHandler()->message);
+
+
+            if (this->player->getHandler().get() != nullptr && this->player->getHandler()->shouldLock)
+                return;
         }
         
         if (this->player->getMapDone())
@@ -108,25 +124,22 @@ namespace Dungeon {
             }
         }
 
-        if (this->player->getHandler().get() != nullptr)
-        {
-
-            sprintf(gameData->statsText, this->player->getHandler()->message.c_str());
-            return;
-        }
-
-        sprintf(gameData->statsText, "Health: %d/%d Coins: %d",
-            this->player->getHealth(),
-            this->player->getMaxHealth(),
-            this->player->getCoins());
+        gameData->damage = this->player->getDamage();
+        gameData->health = this->player->getHealth();
+        gameData->maxHealth = this->player->getMaxHealth();
+        gameData->coins = this->player->getCoins();
 
         if(this->player->getHealth() <= 0)
         {
             gameData->gameEnd = true;
             gameData->map[player->getPosition().x][player->getPosition().y] = DEAD;
-            sprintf(gameData->statsText, "You are dead, Coins: %d",
+            sprintf(gameData->messageText[0], "You are dead");
+            sprintf(gameData->messageText[1], "Coins: %d",
                 this->player->getCoins());
         }
+
+        if (this->player->getHandler().get() != nullptr)
+            fillMessage(gameData, this->player->getHandler()->message);
     }
 
     GameManager::~GameManager() 
