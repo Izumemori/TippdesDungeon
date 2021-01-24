@@ -2,7 +2,7 @@
 #define Player_H
 
 #include "Entity.hpp"
-
+#include "../Util/InteractionHandler.hpp"
 namespace Dungeon {
 namespace Entities {
 
@@ -34,10 +34,26 @@ class Player : public Entity {
             return this->coins;
         }
 
+        std::unique_ptr<InteractionHandler_t>& getHandler()
+        {
+            return this->handler;
+        }
+
+        void addMaxHealth(int amount)
+        {
+            this->maxHealth += amount;
+        }
+
+        void addDamage(int amount)
+        {
+            this->damage += amount;
+        }
+
         ~Player();
 
         private:
             bool mapDone = false;
+            std::unique_ptr<InteractionHandler_t> handler;
             int coins = 0;
 };
 

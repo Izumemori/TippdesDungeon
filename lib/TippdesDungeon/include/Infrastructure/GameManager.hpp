@@ -21,6 +21,7 @@ class GameManager {
         std::unique_ptr<Map> map;
         std::shared_ptr<Entities::Player> player;
         std::string mapBasePath;
+        int mapCount = 0;
 };
 
 }

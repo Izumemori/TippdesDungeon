@@ -20,6 +20,11 @@ class Entity : public GameObject {
             return this->health;
         }
 
+        int getMaxHealth()
+        {
+            return this->maxHealth;
+        }
+
         int getDamage()
         {
             return this->damage;

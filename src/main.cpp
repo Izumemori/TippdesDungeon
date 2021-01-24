@@ -60,6 +60,14 @@ void print(GameData_t* gameData, WINDOW* window)
                 case POTION_0:
                     toPrint = 'p';
                     break;
+
+                case SWORD:
+                    toPrint = 's';
+                    break;
+                
+                case HEART:
+                    toPrint = 'h';
+                    break;
             }
             
             waddch(window, toPrint);

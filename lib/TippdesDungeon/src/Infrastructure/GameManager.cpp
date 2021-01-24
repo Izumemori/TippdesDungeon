@@ -21,31 +21,45 @@ namespace Dungeon {
     void GameManager::loadRandomMap()
     {
         std::vector<std::string> maps = {};
+        std::vector<std::string> shops = {};
 
         for (auto item : std::filesystem::directory_iterator(this->mapBasePath, std::filesystem::directory_options::skip_permission_denied))
         {
-            if (item.path().stem().string().rfind("map", 0) == 0)
-            {
+            auto stem = item.path().stem().string();
+
+            if (stem.rfind("map", 0) == 0)
                 maps.push_back(item.path().string());
-            }
+            else if (stem.rfind("shop", 0) == 0)
+                shops.push_back(item.path().string());
+
         }
 
-        auto res = *select_randomly(maps.begin(), maps.end());
-        
+        std::string res;
+        if (this->mapCount % 4 == 0)
+            res = *select_randomly(shops.begin(), shops.end());
+        else 
+            res = *select_randomly(maps.begin(), maps.end());
+
         this->map->objects.clear();
         this->map->fromAscii(res, this->player);
+        this->mapCount++;
     }
 
     void GameManager::next(GameData_t* gameData, const InteractionData_t& interactionData)
     {
-        if (this->player->getMapDone() && interactionData.input == 'e')
+        if (this->player->getHandler().get() != nullptr)
+        {
+            if (this->player->getHandler()->handler(interactionData))
+            {
+                std::unique_ptr<InteractionHandler_t> tmp = std::move(this->player->getHandler());
+            }
+            else return;
+        }
+        
+        if (this->player->getMapDone())
         {
             this->player->resetMapDone();
             this->loadRandomMap();
-        }
-        else if (this->player->getMapDone() && interactionData.input != 'e')
-        {
-            return;
         }
 
         this->player->update(interactionData, this->map.get());
@@ -94,14 +108,16 @@ namespace Dungeon {
             }
         }
 
-        if (this->player->getMapDone())
+        if (this->player->getHandler().get() != nullptr)
         {
-            sprintf(gameData->statsText, "Press %s to continue", "E");
+
+            sprintf(gameData->statsText, this->player->getHandler()->message.c_str());
             return;
         }
 
-        sprintf(gameData->statsText, "Health: %d Coins: %d",
+        sprintf(gameData->statsText, "Health: %d/%d Coins: %d",
             this->player->getHealth(),
+            this->player->getMaxHealth(),
             this->player->getCoins());
 
         if(this->player->getHealth() <= 0)
