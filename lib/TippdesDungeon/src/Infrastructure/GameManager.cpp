@@ -26,8 +26,8 @@ namespace Dungeon {
         getline(streamMessage, lineOne);
         getline(streamMessage, lineTwo);
 
-        sprintf(gameData->messageText[0], lineOne.c_str());
-        sprintf(gameData->messageText[1], lineTwo.c_str());
+        sprintf(gameData->messageText[0], "%s", lineOne.c_str());
+        sprintf(gameData->messageText[1], "%s", lineTwo.c_str());
     }
 
     void GameManager::loadRandomMap()
