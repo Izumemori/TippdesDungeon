@@ -55,7 +55,7 @@ namespace Dungeon {
                             case 1:
                             case 2:
                             case 3:
-                                health = 50;
+                                health = std::max(100, rand() % 250);
                                 damage = 5;
                                 playerSeekRadius = 0;
                                 type = EnemyType::Blob;
@@ -65,7 +65,7 @@ namespace Dungeon {
                             case 4:
                             case 5:
                             case 6:
-                                health = 100;
+                                health = std::max(50, rand() % 100);
                                 damage = 2;
                                 playerSeekRadius = 4;
                                 type = EnemyType::Snake;
@@ -74,7 +74,7 @@ namespace Dungeon {
                             // ghost
                             case 7:
                             case 8:
-                                health = 50;
+                                health = std::max(100, rand() % 250);
                                 damage = 1;
                                 playerSeekRadius = 9;
                                 type = EnemyType::Ghost;

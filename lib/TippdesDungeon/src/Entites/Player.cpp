@@ -114,18 +114,26 @@ namespace Entities {
         }
 
         Door* door;
-        if ((door = dynamic_cast<Door*>(&other)) != nullptr && !door->getClosed())
+        if ((door = dynamic_cast<Door*>(&other)) != nullptr)
         {
-            this->handler = std::make_unique<InteractionHandler_t>("Press E to leave the room", 
-                [this](const InteractionData_t& data) -> bool
-                {
-                    if (data.input == 'e' || data.input == 'E')
+            if (!door->getClosed())
+            {
+                this->handler = std::make_unique<InteractionHandler_t>("Press E to leave the room.", 
+                    [this](const InteractionData_t& data) -> bool
                     {
-                        this->mapDone = true;
-                    }
+                        if (data.input == 'e' || data.input == 'E')
+                        {
+                            this->mapDone = true;
+                        }
 
-                    return true;
-                });
+                        return true;
+                    });
+            }
+            else
+            {
+                this->handler = std::make_unique<InteractionHandler_t>("This door is locked.", 
+                    [this](const InteractionData_t& data) -> bool { return true; });
+            }
         }
 
         Enemy* entity;
